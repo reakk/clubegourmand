@@ -1,0 +1,288 @@
+<?php
+
+
+/* *******************************************************************
+ * Staff 4 Solutions (c) 2011
+ * 
+ * Descrição: 
+ * Created on 18/12/2011
+ * Developer: Lago
+ * Projeto: mbAssociados
+ * TODO: TODO
+ * Revision:
+ /* *****************************************************************/
+function getDiretorioProduto ($tipoProduto){
+	$retorno = "";
+	switch ($tipoProduto) {
+	    case 1:
+	    case 01:
+	        $retorno = "artigo/";
+	        break;
+	    case 2:
+	    case 02:
+	        $retorno = "batepapo/";
+	        break;
+	    case 3:
+	    case 03:
+	        $retorno = "bancodedados/";
+	        break;
+	    case 4:
+	    case 04:
+	        $retorno = "podcast/";
+	        break;
+	    case 5:
+	    case 05:
+	        $retorno = "video/";
+	        break;
+
+	}
+	return $retorno;
+	
+}
+
+//function retornar mes por extenso
+function getMes($mes) {
+	$retorno = "";
+	switch ($mes) {
+		case 1 :
+		case 01 :
+			$retorno = " Janeiro ";
+			break;
+		case 2 :
+		case 02 :
+			$retorno = " Fevereiro ";
+			break;
+		case 3 :
+		case 03 :
+			$retorno = " Março ";
+			break;
+		case 4 :
+		case 04 :
+			$retorno = " Abril ";
+			break;
+		case 5 :
+		case 05 :
+			$retorno = " Maio ";
+			break;
+		case 6 :
+		case 06 :
+			$retorno = " Junho ";
+			break;
+		case 7 :
+		case 07 :
+			$retorno = " Julho ";
+			break;
+		case 8 :
+		case 08 :
+			$retorno = " Agosto ";
+			break;
+		case 9 :
+		case 09 :
+			$retorno = " Setembro ";
+			break;
+		case 10 :
+			$retorno = " Outubro ";
+			break;
+		case 11 :
+			$retorno = " Novembro ";
+			break;
+		case 12 :
+			$retorno = " Dezembro ";
+			break;
+	}
+	return $retorno;
+
+}
+
+//function retornar mes por extenso
+function getMesAbreviado($mes) {
+	switch ($mes) {
+		case 1 :
+		case 01 :
+			echo "Jan";
+			break;
+		case 2 :
+		case 02 :
+			echo "Fev";
+			break;
+		case 3 :
+		case 03 :
+			echo "Mar";
+			break;
+		case 4 :
+		case 04 :
+			echo "Abr";
+			break;
+		case 5 :
+		case 05 :
+			echo "Mai";
+			break;
+		case 6 :
+		case 06 :
+			echo "Jun";
+			break;
+		case 7 :
+		case 07 :
+			echo "Jul";
+			break;
+		case 8 :
+		case 08 :
+			echo "Ago";
+			break;
+		case 9 :
+		case 09 :
+			echo "Set";
+			break;
+		case 10 :
+			echo "Out";
+			break;
+		case 11 :
+			echo "Nov";
+			break;
+		case 12 :
+			echo "Dez";
+			break;
+	}
+
+}
+
+function getUrlAtual() {
+	$protocolo = (strpos(strtolower($_SERVER['SERVER_PROTOCOL']), 'https') === false) ? 'http' : 'https';
+	$host = $_SERVER['HTTP_HOST'];
+	$script = $_SERVER['SCRIPT_NAME'];
+	$parametros = $_SERVER['QUERY_STRING'];
+	$UrlAtual = $protocolo . '://' . $host . $script . '?' . $parametros;
+	return $UrlAtual;
+
+}
+
+function getUrlTwitter($idConteudo){
+	$protocolo = (strpos(strtolower($_SERVER['SERVER_PROTOCOL']), 'https') === false) ? 'http' : 'https';
+	$host = $_SERVER['HTTP_HOST'];
+	$script = $_SERVER['SCRIPT_NAME'];
+	$parametros = $_SERVER['QUERY_STRING'];
+	//prod
+    $diretorioJoomla = "mbnovo/portalB";
+	$UrlTwitter = $protocolo . '://' . $host . "/".$diretorioJoomla."/t.php?p=" .$idConteudo; 
+	return $UrlTwitter; 
+	
+}
+
+function getDescricaoOcorrencia($pTipoProduto) {
+	switch ($pTipoProduto) {
+		case 1 :
+			return "Publicado ";
+			break;
+		case 2 :
+			return "Agendado para ";
+			break;
+		case 3 :
+			return "Banco de Dados";
+			break;
+		case 4 :
+			return "Publicado";
+			break;
+		case 5 :
+			return "Publicado";
+			break;
+
+	}
+
+}
+
+function getHorarioPublicacao($totalHoras,$diaPublicacao,$mesPublicacao,$anoPublicacao) {
+	$horas_tmp = explode(":", $totalHoras);
+	$retorno="";
+	if ($horas_tmp[0] < 24) { //pulicacao de menos de um dia
+
+		$retorno.=  " h&aacute; ";
+		if ($horas_tmp[0] != "00") {
+			$retorno.= $horas_tmp[0] . " hora(s) e ";
+		}
+		$retorno.= $horas_tmp[1] . " minuto(s) ";
+
+	} else { //publicacao de mais de um dia
+
+		$retorno.=  "  em ";
+		$retorno.=  $diaPublicacao;
+		$retorno.=  " de ";
+		$retorno.= getMes($mesPublicacao);
+		$retorno.=  " de ";
+		$retorno.=  $anoPublicacao;
+	}
+	return $retorno; 
+}
+
+function getPreposicaoTipoProduto($pTipoProduto) {
+	switch ($pTipoProduto) {
+		case 1 :
+			return "escrito por";
+			break;
+		case 2 :
+			return "com";
+			break;
+		case 3 :
+			return "Banco de Dados";
+			break;
+		case 4 :
+			return "de";
+			break;
+		case 5 :
+			return "de";
+			break;
+
+	}
+
+}
+
+function getDescricaoTipoProduto($pTipoProduto) {
+	switch ($pTipoProduto) {
+		case 1 :
+			return "Artigo";
+			break;
+		case 2 :
+			return "Bate-Papo";
+			break;
+		case 3 :
+			return "Banco de Dados";
+			break;
+		case 4 :
+			return utf8_decode("VídeoKK");
+			break;
+		case 5 :
+			return "Vídeo";
+			break;
+
+	}
+
+}
+
+//echo $qtdeLinhasHome;
+function converter_data($strData) {
+	// Recebemos a data no formato: dd/mm/aaaa
+	// Convertemos a data para o formato: aaaa-mm-dd
+	if (@ $strData != "") {
+		if (preg_match("#-#", $strData) == 1) {
+			$strDataFormat = "";
+			$strDataFormat .= implode('/', array_reverse(explode('-', $strData)));
+			//$strDataFormat .= "'";
+		}
+	} else {
+		$strDataFormat = null;
+	}
+	return $strDataFormat;
+}
+
+function format_file_fize_size($size, $display_bytes = false) {
+	if ($size < 1024)
+		$filesize = $size . ' bytes';
+	elseif ($size >= 1024 && $size < 1048576) $filesize = round($size / 1024, 2) . ' KB';
+
+	elseif ($size >= 1048576) $filesize = round($size / 1048576, 2) . ' MB';
+
+	if ($size >= 1024 && $display_bytes)
+		$filesize = $filesize . ' (' . $size . ' bytes)';
+
+	return $filesize;
+}
+?>
